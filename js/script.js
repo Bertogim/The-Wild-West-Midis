@@ -1,19 +1,10 @@
+const fileListContainer = document.getElementById('file-list');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
-const fileListContainer = document.getElementById('file-list');
-
-searchForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const searchTerm = searchInput.value.toLowerCase();
-    
-    const filteredFiles = fileList.filter(file => file.name.toLowerCase().includes(searchTerm));
-    
-    displayFileList(filteredFiles);
-});
 
 async function fetchFileList() {
     try {
-        const response = await fetch('https://api.github.com/repos/Bertogim/The-Wild-West-Midis/contents/midis');
+        const response = await fetch('https://api.github.com/repos/Bertogim/The-Wild-West-Midis/contents/archivos');
         const data = await response.json();
         
         return data.map(file => ({
@@ -26,7 +17,7 @@ async function fetchFileList() {
     }
 }
 
-async function displayFileList(files) {
+async function displayFiles(files) {
     fileListContainer.innerHTML = '';
 
     if (files.length === 0) {
@@ -71,5 +62,16 @@ function copyToClipboard(text) {
     document.body.removeChild(tempInput);
 }
 
-// Call the function to display the file list
-displayFileList(fileList);
+// Search form submission handler
+searchForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    fetchFileList().then(files => {
+        const filteredFiles = files.filter(file => file.name.toLowerCase().includes(searchTerm));
+        displayFiles(filteredFiles);
+    });
+});
+
+// Call the function to display all files initially
+fetchFileList().then(displayFiles);
