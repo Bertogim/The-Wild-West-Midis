@@ -2,11 +2,12 @@ const fileListContainer = document.getElementById('file-list');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
-const relativePath = 'midis'; // Relative path to the "midis" directory
+// Obtén la ruta relativa a la carpeta "midis"
+const relativePath = 'midis/';
 
 async function fetchFileList() {
     try {
-        const response = await fetch(relativePath);
+        const response = await fetch(relativePath); // Acceder a la carpeta "midis"
         // ...
     } catch (error) {
         console.error('Error fetching file list:', error);
