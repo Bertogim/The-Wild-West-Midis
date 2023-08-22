@@ -1,20 +1,38 @@
-const fileListContainer = document.getElementById('file-list');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
+const fileListContainer = document.getElementById('file-list');
+let fileList = [];
 
-// Obtén la ruta relativa a la carpeta "midis"
-const relativePath = 'midis/';
+searchForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    const filteredFiles = fileList.filter(file => file.name.toLowerCase().includes(searchTerm));
+    
+    displayFileList(filteredFiles);
+});
 
-async function fetchFileList() {
+async function fetchMidiFiles() {
     try {
-        const response = await fetch(relativePath); // Acceder a la carpeta "midis"
-        // ...
+        const response = await fetch('https://raw.githack.com/Bertogim/The-Wild-West-Midis/main/midilist.txt');
+        const data = await response.text();
+        const midiFileNames = data
+            .split('\n')
+            .filter(file => file.trim().endsWith('.mid'));
+
+        fileList = midiFileNames.map(name => ({
+            name,
+            url: `https://raw.githack.com/Bertogim/The-Wild-West-Midis/main/midis/${name}`
+        }));
+
+        // Mostrar todos los archivos al cargar la página
+        displayFileList(fileList);
     } catch (error) {
-        console.error('Error fetching file list:', error);
-        return [];
+        console.error('Error fetching MIDI files:', error);
     }
 }
-async function displayFiles(files) {
+
+function displayFileList(files) {
     fileListContainer.innerHTML = '';
 
     if (files.length === 0) {
@@ -22,32 +40,23 @@ async function displayFiles(files) {
         return;
     }
 
-    try {
-        const githubFiles = await fetchFileList();
+    files.forEach(file => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <p>${file.name}</p>
+            <button class="copy-button" data-url="${file.url}">Copy Midi Data</button>
+        `;
+        fileListContainer.appendChild(listItem);
+    });
 
-        files.forEach(file => {
-            const githubFile = githubFiles.find(f => f.name === file.name);
-            if (githubFile) {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <p>${file.name}</p>
-                    <button class="copy-button" data-url="${githubFile.url}">Copy Link</button>
-                `;
-                fileListContainer.appendChild(listItem);
-            }
+    const copyButtons = document.querySelectorAll('.copy-button');
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const url = this.getAttribute('data-url');
+            copyToClipboard(url);
+            alert('Midi data copied: ' + url);
         });
-
-        const copyButtons = document.querySelectorAll('.copy-button');
-        copyButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const url = this.getAttribute('data-url');
-                copyToClipboard(url);
-                alert('Link copied to clipboard: ' + url);
-            });
-        });
-    } catch (error) {
-        console.error('Error displaying file list:', error);
-    }
+    });
 }
 
 function copyToClipboard(text) {
@@ -59,16 +68,5 @@ function copyToClipboard(text) {
     document.body.removeChild(tempInput);
 }
 
-// Search form submission handler
-searchForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const searchTerm = searchInput.value.toLowerCase();
-    
-    fetchFileList().then(files => {
-        const filteredFiles = files.filter(file => file.name.toLowerCase().includes(searchTerm));
-        displayFiles(filteredFiles);
-    });
-});
-
-// Call the function to display all files initially
-fetchFileList().then(displayFiles);
+// Llamar a la función para obtener y mostrar la lista de archivos MIDI
+fetchMidiFiles();
