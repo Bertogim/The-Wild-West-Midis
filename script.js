@@ -57,7 +57,7 @@ function displayFileList(files) {
             
             // Cambiar el texto del botón a "Copiado!" por 1 segundo
             const originalButtonText = button.textContent;
-            button.textContent = 'Copiado!';
+            button.textContent = 'Copied!';
             setTimeout(() => {
                 button.textContent = originalButtonText;
             }, 1000);
