@@ -1,7 +1,7 @@
 /* Estilos para el encabezado */
 header {
     text-align: center;
-    background-color: #333;
+    background-color: #464646;
     color: white;
     padding: 10px;
 }
@@ -19,7 +19,7 @@ header {
 
 #search-form button {
     padding: 5px 15px;
-    background-color: #333;
+    background-color: #464646;
     color: white;
     border: none;
     cursor: pointer;
@@ -44,7 +44,7 @@ header {
 
 .copy-button {
     padding: 5px 10px;
-    background-color: #333;
+    background-color: #464646;
     color: white;
     border: none;
     cursor: pointer;
@@ -56,4 +56,11 @@ header {
     padding: 10px;
     text-align: center;
     display: none;
+}
+
+#file-list a {
+    color: #333; /* Cambia el color del texto del enlace */
+    text-decoration: none; /* Quita la subrayado predeterminado */
+    display: inline-block; /* Asegura que los enlaces ocupen espacio en línea */
+    padding: 5px; /* Agrega espaciado alrededor de los enlaces */
 }
