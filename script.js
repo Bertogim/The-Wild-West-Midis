@@ -54,7 +54,13 @@ function displayFileList(files) {
         button.addEventListener('click', function () {
             const url = this.getAttribute('data-url');
             copyToClipboard(url);
-            alert('Midi data copied: ' + url);
+            
+            // Cambiar el texto del botón a "Copiado!" por 1 segundo
+            const originalButtonText = button.textContent;
+            button.textContent = 'Copiado!';
+            setTimeout(() => {
+                button.textContent = originalButtonText;
+            }, 1000);
         });
     });
 }
