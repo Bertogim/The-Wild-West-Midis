@@ -2,24 +2,17 @@ const fileListContainer = document.getElementById('file-list');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
-const repositoryBaseUrl = 'https://api.github.com/repos/Bertogim/The-Wild-West-Midis';
-const relativePath = 'contents/midis';
+const relativePath = 'midis'; // Relative path to the "midis" directory
 
 async function fetchFileList() {
     try {
-        const response = await fetch(`${repositoryBaseUrl}/${relativePath}`);
-        const data = await response.json();
-
-        return data.map(file => ({
-            name: file.name,
-            url: file.download_url
-        }));
+        const response = await fetch(relativePath);
+        // ...
     } catch (error) {
         console.error('Error fetching file list:', error);
         return [];
     }
 }
-
 async function displayFiles(files) {
     fileListContainer.innerHTML = '';
 
