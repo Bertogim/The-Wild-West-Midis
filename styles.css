@@ -1,0 +1,59 @@
+/* Estilos para el encabezado */
+header {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+/* Estilos para el formulario de búsqueda */
+#search-form {
+    margin: 20px auto;
+    text-align: center;
+}
+
+#search-input {
+    padding: 5px;
+    width: 70%;
+}
+
+#search-form button {
+    padding: 5px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilos para la lista de archivos */
+#file-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+#file-list li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.copy-button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Estilos para el enlace de descarga copiado */
+.alert-message {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
