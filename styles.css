@@ -6,6 +6,12 @@ header {
     padding: 10px;
 }
 
+body {
+    background-color: #121212;
+    color: #ffffff;
+    /* Otros estilos para elementos en modo oscuro */
+}
+
 /* Estilos para el formulario de búsqueda */
 #search-form {
     margin: 20px auto;
