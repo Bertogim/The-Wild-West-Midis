@@ -4,7 +4,7 @@ const searchInput = document.getElementById('search-input');
 
 async function fetchFileList() {
     try {
-        const response = await fetch('https://api.github.com/repos/Bertogim/The-Wild-West-Midis/contents/archivos');
+        const response = await fetch('https://api.github.com/repos/Bertogim/The-Wild-West-Midis/contents/midis');
         const data = await response.json();
         
         return data.map(file => ({
