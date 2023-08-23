@@ -14,15 +14,14 @@ searchForm.addEventListener('submit', function (e) {
 
 async function fetchMidiFiles() {
     try {
-        const response = await fetch('https://raw.githack.com/Bertogim/The-Wild-West-Midis/main/midilist.txt');
-        const data = await response.text();
-        const midiFileNames = data
-            .split('\n')
-            .filter(file => file.trim().endsWith('.mid'));
+        const response = await fetch('https://api.github.com/repos/Bertogim/The-Wild-West-Midis/contents/midis');
+        const data = await response.json();
 
-        fileList = midiFileNames.map(name => ({
-            name,
-            url: `https://raw.githack.com/Bertogim/The-Wild-West-Midis/main/midis/${name}`
+        const midiFiles = data.filter(item => item.name.endsWith('.mid'));
+
+        fileList = midiFiles.map(file => ({
+            name: formatFileName(file.name),
+            url: file.download_url
         }));
 
         // Mostrar todos los archivos al cargar la página
@@ -30,6 +29,14 @@ async function fetchMidiFiles() {
     } catch (error) {
         console.error('Error fetching MIDI files:', error);
     }
+}
+
+function formatFileName(name) {
+    // Reemplazar "_" y "-" por " " (espacio)
+    const formattedName = name.replace(/_/g, ' ').replace(/-/g, ' ');
+
+    // Eliminar espacios duplicados causados por el reemplazo anterior
+    return formattedName.replace(/\s+/g, ' ');
 }
 
 function displayFileList(files) {
@@ -51,16 +58,13 @@ function displayFileList(files) {
 
     const copyButtons = document.querySelectorAll('.copy-button');
     copyButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', async function () {
             const url = this.getAttribute('data-url');
             copyToClipboard(url);
-            
-            // Cambiar el texto del botón a "Copiado!" por 1 segundo
-            const originalButtonText = button.textContent;
+
             button.textContent = 'Copied!';
-            setTimeout(() => {
-                button.textContent = originalButtonText;
-            }, 1000);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            button.textContent = 'Copy Midi Data';
         });
     });
 }
