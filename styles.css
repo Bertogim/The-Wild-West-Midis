@@ -1,15 +1,20 @@
 /* Estilos para el encabezado */
 header {
     text-align: center;
-    background-color: #464646;
+    background-color: #35393e;
     color: white;
     padding: 10px;
 }
 
 body {
-    background-color: #121212;
+    background-color: #35393e;
     color: #ffffff;
+    font-family: Arial, sans-serif; /* Puedes cambiar "Arial" por la fuente que prefieras */
     /* Otros estilos para elementos en modo oscuro */
+}
+
+h1, h2 {
+    font-family: 'Trebuchet MS', sans-serif; /* Puedes cambiar "Times New Roman" por la fuente que prefieras */
 }
 
 /* Estilos para el formulario de búsqueda */
@@ -25,23 +30,23 @@ body {
 
 #search-form button {
     padding: 5px 15px;
-    background-color: #464646;
-    color: white;
+    background-color: #424549;
+    color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
 }
 
-/* Estilos para la lista de archivos */
-#file-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px auto;
-    max-width: 600px;
+/* Agrega estilos a los resultados de búsqueda */
+#file-list li {
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #424549; /* Cambia este color al que desees */
 }
 
 #file-list li {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 0px solid #ddd;
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
@@ -50,7 +55,7 @@ body {
 
 .copy-button {
     padding: 5px 10px;
-    background-color: #464646;
+    background-color: #4f4f4f;
     color: white;
     border: none;
     cursor: pointer;
