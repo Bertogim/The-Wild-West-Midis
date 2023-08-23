@@ -1,31 +1,42 @@
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 const fileListContainer = document.getElementById('file-list');
-let fileList = [];
+const urlParams = new URLSearchParams(window.location.search);
+
+// Obtener el término de búsqueda de los parámetros de la URL
+const searchTermFromURL = urlParams.get('search');
+if (searchTermFromURL) {
+    searchInput.value = searchTermFromURL;
+}
 
 searchForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const searchTerm = searchInput.value.toLowerCase();
     
-    const filteredFiles = fileList.filter(file => file.name.toLowerCase().includes(searchTerm));
-    
-    displayFileList(filteredFiles);
+    // Agregar un retraso de 1 segundo antes de realizar la búsqueda
+    setTimeout(() => {
+        fetchMidiFiles(searchTerm);
+
+        // Actualizar la URL con el parámetro de búsqueda
+        urlParams.set('search', searchTerm);
+        history.pushState(null, '', `?search=${encodeURIComponent(searchTerm)}`);
+    }, 1000);
 });
 
-async function fetchMidiFiles() {
+async function fetchMidiFiles(searchTerm = '') {
     try {
         const response = await fetch('https://api.github.com/repos/Bertogim/The-Wild-West-Midis/contents/midis');
         const data = await response.json();
 
         const midiFiles = data.filter(item => item.name.endsWith('.mid'));
 
-        fileList = midiFiles.map(file => ({
-            name: formatFileName(file.name),
-            url: file.download_url
-        }));
-
-        // Mostrar todos los archivos al cargar la página
-        displayFileList(fileList);
+        // Filtrar por término de búsqueda si se proporciona
+        if (searchTerm) {
+            const filteredFiles = midiFiles.filter(file => file.name.toLowerCase().includes(searchTerm));
+            displayFileList(filteredFiles);
+        } else {
+            displayFileList(midiFiles);
+        }
     } catch (error) {
         console.error('Error fetching MIDI files:', error);
     }
@@ -79,4 +90,5 @@ function copyToClipboard(text) {
 }
 
 // Llamar a la función para obtener y mostrar la lista de archivos MIDI
-fetchMidiFiles();
+const searchTerm = urlParams.get('search');
+fetchMidiFiles(searchTerm);
