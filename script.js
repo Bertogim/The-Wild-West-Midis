@@ -61,8 +61,8 @@ function displayFileList(files) {
     files.forEach(file => {
         const listItem = document.createElement('li');
         listItem.innerHTML = `
-            <p>${file.name}</p>
-            <button class="copy-button" data-url="${file.url}">Copy Midi Data</button>
+            <p>${formatFileName(file.name)}</p>
+            <button class="copy-button" data-url="${file.download_url}">Copy Midi Data</button>
         `;
         fileListContainer.appendChild(listItem);
     });
@@ -74,8 +74,9 @@ function displayFileList(files) {
             copyToClipboard(url);
 
             button.textContent = 'Copied!';
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            button.textContent = 'Copy Midi Data';
+            await new Promise(resolve => setTimeout(() => {
+                button.textContent = 'Copy Midi Data';
+            }, 1000));
         });
     });
 }
