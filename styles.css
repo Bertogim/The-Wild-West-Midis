@@ -26,6 +26,7 @@ h1, h2 {
 
 #search-input {
     padding: 7.5px;
+    width: 70%;
     border-radius: 10px;
     background-color: #424549;
     color: rgb(255, 255, 255);
@@ -41,11 +42,14 @@ h1, h2 {
     border-radius: 10px;
 }
 
+#search-form button:hover{
+    background-color: #5a5e64;
+}
+
 /* Agrega estilos a los resultados de búsqueda */
 #file-list li {
     margin: 10px;
     padding: 15px;
-    width: 94%;
     border-radius: 20px;
     background-color: #424549; /* Cambia este color al que desees */
     border: 0px solid #43494e;
@@ -65,10 +69,52 @@ h1, h2 {
     border-radius: 10px;
 }
 
+.copy-button:hover{
+    background-color: #5a5e64;
+}
+
 /* Estilos para el enlace de descarga copiado */
 .alert-message {
     background-color: #f0f0f0;
     padding: 10px;
     text-align: center;
     display: none;
+}
+
+.back-button {
+    padding: 5px 10px;
+    background-color: #4f5155;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 5%;
+}
+
+.back-button:hover{
+    background-color: #5a5e64;
+}
+
+.the-iframe{
+    padding: 5px 10px;
+    background-color: white;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.request-button{
+    padding: 1% 10px;
+    background-color: #4f5155;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 20%;
+    height: 10%;
+}
+
+.request-button:hover{
+    background-color: #5a5e64;
 }
