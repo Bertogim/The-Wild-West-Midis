@@ -21,44 +21,49 @@ h1, h2 {
 #search-form {
     margin: 20px auto;
     text-align: center;
+    border-radius: 10px;
 }
 
 #search-input {
-    padding: 5px;
+    padding: 7.5px;
     width: 70%;
+    border-radius: 10px;
+    background-color: #424549;
+    color: rgb(255, 255, 255);
+    border: 0px solid #ddd;
 }
 
 #search-form button {
-    padding: 5px 15px;
-    background-color: #424549;
+    padding: 7.5px 15px;
+    background-color: #4f5155;
     color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 /* Agrega estilos a los resultados de búsqueda */
 #file-list li {
     margin: 10px;
     padding: 15px;
-    border-radius: 10px;
+    width: 94%;
+    border-radius: 20px;
     background-color: #424549; /* Cambia este color al que desees */
-}
-
-#file-list li {
-    padding: 10px;
-    border: 0px solid #ddd;
-    margin: 5px 0;
+    border: 0px solid #43494e;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: auto;
+    text-align: auto;
+    list-style-position: inside;
 }
 
 .copy-button {
     padding: 5px 10px;
-    background-color: #4f4f4f;
+    background-color: #4f5155;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 /* Estilos para el enlace de descarga copiado */
@@ -67,11 +72,4 @@ h1, h2 {
     padding: 10px;
     text-align: center;
     display: none;
-}
-
-#file-list a {
-    color: #333; /* Cambia el color del texto del enlace */
-    text-decoration: none; /* Quita la subrayado predeterminado */
-    display: inline-block; /* Asegura que los enlaces ocupen espacio en línea */
-    padding: 5px; /* Agrega espaciado alrededor de los enlaces */
 }
