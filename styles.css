@@ -52,12 +52,14 @@ h1, h2 {
     padding: 15px;
     border-radius: 20px;
     background-color: #424549; /* Cambia este color al que desees */
-    border: 0px solid #43494e;
-    display: flex;
-    justify-content: space-between;
+    border: 3px solid #474b4e;
+    justify-content: space-around;
     align-items: auto;
     text-align: auto;
     list-style-position: inside;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
 .copy-button {
@@ -67,6 +69,7 @@ h1, h2 {
     border: none;
     cursor: pointer;
     border-radius: 10px;
+    margin-left: auto;
 }
 
 .copy-button:hover{
@@ -117,4 +120,32 @@ h1, h2 {
 
 .request-button:hover{
     background-color: #5a5e64;
+}
+
+.favorite-button {
+    padding: 5px 10px;
+    background-color: #7e8763;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.favorite-button:hover {
+    background-color: #a1b170;
+}
+
+.remove-favorite-button {
+    padding: 5px 10px;
+    background-color: #755250;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.remove-favorite-button:hover {
+    background-color: #653836;
 }
