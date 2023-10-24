@@ -1,9 +1,14 @@
 /* Estilos para el encabezado */
 header {
     text-align: center;
-    background-color: #35393e;
+    background-color: #41464d;
     color: white;
+    border: 3px solid #474b4e;
+    border-radius: 30px;
     padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 body {
