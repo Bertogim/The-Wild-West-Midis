@@ -76,7 +76,7 @@ function displayFileList(files) {
                 ${isFavorite ? 'Unfavorite' : 'Favorite'}
             </button>
             <br>
-            <p">${file.get_duration}s<p>
+            <p class="duration">${MIDIjs.get_duration(file.download_url, function(seconds) {seconds+"s"} )}<p>
             
         `
         fileListContainer.appendChild(listItem);
