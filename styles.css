@@ -64,7 +64,6 @@ h1, h2 {
     list-style-position: inside;
     display: flex;
     justify-content: space-between;
-    margin: 10px 0;
 }
 
 .copy-button {
@@ -153,4 +152,17 @@ h1, h2 {
 
 .remove-favorite-button:hover {
     background-color: #653836;
+}
+
+.midiname {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.duration {
+    font-size: 15px;
+    color: #a7aaad;
+    margin-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 5px;
 }

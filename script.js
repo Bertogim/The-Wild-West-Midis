@@ -16,7 +16,7 @@ const favoriteFileNames = new Set(favorites.map(file => file.name));
 searchForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const searchTerm = searchInput.value.toLowerCase();
-    
+
     // Agregar un retraso de 1 segundo antes de realizar la búsqueda
     setTimeout(() => {
         fetchMidiFiles(searchTerm, favoriteFileNames);
@@ -57,7 +57,7 @@ function formatFileName(name) {
     return formattedName.replace(/\s+/g, ' ');
 }
 
-function displayFileList(files) {
+async function displayFileList(files) {
     fileListContainer.innerHTML = '';
 
     if (files.length === 0) {
@@ -65,19 +65,39 @@ function displayFileList(files) {
         return;
     }
 
-    files.forEach(file => {
+    const durationPromises = files.map(async file => {
         const listItem = document.createElement('li');
-        const isFavorite = favoriteFileNames.has(file.name); // Check if file is in favorites
+        const isFavorite = favoriteFileNames.has(file.name);
 
         listItem.innerHTML = `
-            <p>${formatFileName(file.name)}</p>
+            <div class="divmidiinfo">
+                <p class="midiname">${formatFileName(file.name)}</p>
+                <p class="duration"></p>
+            </div>
             <button class="copy-button" data-url="${file.download_url}">Copy Midi Data</button>
             <button class="${isFavorite ? 'remove-favorite-button' : 'favorite-button'}" data-file='${JSON.stringify(file)}'>
                 ${isFavorite ? 'Unfavorite' : 'Favorite'}
             </button>
         `;
+
         fileListContainer.appendChild(listItem);
+
+        // Cargar y mostrar la duración
+        try {
+            const midi = await Midi.fromUrl(file.download_url);
+            const durationInSeconds = midi.duration;
+            const minutes = Math.floor(durationInSeconds / 60);
+            const seconds = Math.round(durationInSeconds % 60);
+            const durationText = `${minutes} min, ${seconds < 10 ? '0' : ''}${seconds} sec`;
+            const durationDiv = listItem.querySelector('.duration');
+            if (durationDiv) {
+                durationDiv.textContent = durationText;
+            }
+        } catch (error) {
+            console.error('Error loading duration of midi:', file.name, ' - ', error);
+        }
     });
+    
 
     const copyButtons = document.querySelectorAll('.copy-button');
     copyButtons.forEach(button => {
@@ -110,7 +130,7 @@ function displayFileList(files) {
                 this.classList.remove('favorite-button');
                 this.classList.add('remove-favorite-button');
             }
-    
+
             localStorage.setItem('favorites', JSON.stringify(favorites));
         });
     });
@@ -133,7 +153,7 @@ function displayFileList(files) {
                 this.classList.remove('favorite-button');
                 this.classList.add('remove-favorite-button');
             }
-    
+
             localStorage.setItem('favorites', JSON.stringify(favorites));
         });
     });

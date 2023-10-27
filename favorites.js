@@ -66,22 +66,42 @@ function displayFileList(files) {
         fileListContainer.innerHTML = '<p>No results found.</p>';
         return;
     }
-
-    files.forEach(file => {
-        if (favoriteFileNames.has(file.name)) {
-            const listItem = document.createElement('li');
-            const isFavorite = favoriteFileNames.has(file.name); // Check if file is in favorites
     
-            listItem.innerHTML = `
-            <p>${formatFileName(file.name)}</p>
+    const durationPromises = files.map(async file => {
+        if (favoriteFileNames.has(file.name)) {
+        const listItem = document.createElement('li');
+        const isFavorite = favoriteFileNames.has(file.name);
+    
+        listItem.innerHTML = `
+            <div class="divmidiinfo">
+                <p class="midiname">${formatFileName(file.name)}</p>
+                <p class="duration"></p>
+            </div>
             <button class="copy-button" data-url="${file.download_url}">Copy Midi Data</button>
             <button class="${isFavorite ? 'remove-favorite-button' : 'favorite-button'}" data-file='${JSON.stringify(file)}'>
                 ${isFavorite ? 'Unfavorite' : 'Favorite'}
             </button>
         `;
-         fileListContainer.appendChild(listItem);
+        
+    
+        fileListContainer.appendChild(listItem);
+    
+        // Cargar y mostrar la duración
+        try {
+            const midi = await Midi.fromUrl(file.download_url);
+            const durationInSeconds = midi.duration;
+            const minutes = Math.floor(durationInSeconds / 60);
+            const seconds = Math.round(durationInSeconds % 60);
+            const durationText = `${minutes} min, ${seconds < 10 ? '0' : ''}${seconds} sec`;
+            const durationDiv = listItem.querySelector('.duration');
+            if (durationDiv) {
+                durationDiv.textContent = durationText;
+            }
+        } catch (error) {
+            console.error('Error loading duration of midi:', file.name, ' - ', error);
         }
-    });
+    }});
+    
 
     const copyButtons = document.querySelectorAll('.copy-button');
     copyButtons.forEach(button => {
