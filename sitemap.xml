@@ -1,23 +1,23 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset>
 <url>
-<loc>https://bertogim.github.io/The-Wild-West-Midis/</loc>
-<lastmod>2023-09-22T22:08:44+00:00</lastmod>
-<priority>1.00</priority>
+  <loc>https://bertogim.github.io/The-Wild-West-Midis/</loc>
+  <lastmod>2023-10-27T15:20:12+00:00</lastmod>
+  <priority>1.00</priority>
 </url>
 <url>
-<loc>https://bertogim.github.io/The-Wild-West-Midis/tutorial.html</loc>
-<lastmod>2023-09-22T22:08:44+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://bertogim.github.io/The-Wild-West-Midis/tutorial</loc>
+  <lastmod>2023-10-27T15:20:12+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://bertogim.github.io/The-Wild-West-Midis/request.html</loc>
-<lastmod>2023-09-22T22:08:44+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://bertogim.github.io/The-Wild-West-Midis/request</loc>
+  <lastmod>2023-10-27T15:20:12+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 <url>
-<loc>https://bertogim.github.io/The-Wild-West-Midis/favorites.html</loc>
-<lastmod>2023-09-22T22:08:44+00:00</lastmod>
-<priority>0.80</priority>
+  <loc>https://bertogim.github.io/The-Wild-West-Midis/favorites</loc>
+  <lastmod>2023-10-27T15:20:12+00:00</lastmod>
+  <priority>0.80</priority>
 </url>
 </urlset>
