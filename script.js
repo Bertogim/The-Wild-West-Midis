@@ -16,15 +16,10 @@ const favoriteFileNames = new Set(favorites.map(file => file.name));
 searchForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const searchTerm = searchInput.value.toLowerCase();
-
-    // Agregar un retraso de 1 segundo antes de realizar la búsqueda
-    setTimeout(() => {
-        fetchMidiFiles(searchTerm, favoriteFileNames);
-
-        // Actualizar la URL con el parámetro de búsqueda
-        urlParams.set('search', searchTerm);
-        history.pushState(null, '', `?search=${encodeURIComponent(searchTerm)}`);
-    }, 1000);
+    fetchMidiFiles(searchTerm, favoriteFileNames);
+    // Actualizar la URL con el parámetro de búsqueda
+    urlParams.set('search', searchTerm);
+     history.pushState(null, '', `?search=${encodeURIComponent(searchTerm)}`);
 });
 
 async function fetchMidiFiles(searchTerm = '') {
@@ -81,6 +76,7 @@ async function displayFileList(files) {
         `;
 
         fileListContainer.appendChild(listItem);
+        
 
         // Cargar y mostrar la duración
         try {
@@ -191,4 +187,6 @@ favoriteButtons.forEach(button => {
 
 // Llamar a la función para obtener y mostrar la lista de archivos MIDI
 const searchTerm = urlParams.get('search');
-fetchMidiFiles(searchTerm);
+setTimeout(() => {
+    fetchMidiFiles(searchTerm);
+}, 100);
