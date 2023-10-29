@@ -44,7 +44,7 @@ async function fetchMidiFiles(searchTerm = '') {
             displayFileList(midiFiles);
         }
     } catch (error) {
-        console.error('Error fetching MIDI files:', error);
+        console.warn('Failed to load duration of midi:', file.name, ' - ', error);
     }
 }
 

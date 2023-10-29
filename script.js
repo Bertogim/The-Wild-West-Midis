@@ -90,7 +90,9 @@ async function displayFileList(files) {
                 durationDiv.textContent = durationText;
             }
         } catch (error) {
-            console.error('Error loading duration of midi:', file.name, ' - ', error);
+            console.warn('Failed to load duration of midi:', file.name, ' - ', error);
+            const durationp = listItem.querySelector('.midiname');
+            durationp.className = "midinamef"
         }
     });
     
