@@ -79,8 +79,35 @@ h1, h2 {
 .copy-button:hover{
     background-color: #5a5e64;
 }
+.play-button {
+    padding: 5px 10px;
+    background-color: rgb(77, 110, 94);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+}
 
-/* Estilos para el enlace de descarga copiado */
+.play-button:hover{
+    background-color: rgb(81, 131, 107);
+}
+
+.stop-button {
+    padding: 5px 10px;
+    background-color: rgb(179, 84, 77);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.stop-button:hover{
+    background-color: rgb(146, 71, 67);
+}
+
+/* Estilos para el enlace de descarga copiados */
 .alert-message {
     background-color: #f0f0f0;
     padding: 10px;

@@ -73,6 +73,8 @@ async function displayFileList(files) {
             <button class="${isFavorite ? 'remove-favorite-button' : 'favorite-button'}" data-file='${JSON.stringify(file)}'>
                 ${isFavorite ? 'Unfavorite' : 'Favorite'}
             </button>
+            <button class="play-button" data-url="${file.download_url}">Play</button>
+            <button class="stop-button" style="display: none">Stop</button>
         `;
 
         fileListContainer.appendChild(listItem);
@@ -119,7 +121,46 @@ async function displayFileList(files) {
             }, 1000));
         });
     });
+    
+    const playButtons = document.querySelectorAll('.play-button');
+    const stopButtons = document.querySelectorAll('.stop-button');
 
+    playButtons.forEach((playButton, index) => {
+        playButton.addEventListener('click', async function () {
+            const url = this.getAttribute('data-url');
+            MIDIjs.stop();
+            MIDIjs.play(url);
+            stopButtons.forEach(stopButton => {
+                stopButton.style.display = 'none';
+            });
+            // Ocultar el botón "Play" actual
+            playButton.style.display = 'none';
+
+            // Mostrar el botón "Stop" correspondiente
+            stopButtons[index].style.display = 'block';
+
+            // Mostrar el botón "Play" en los otros elementos
+            playButtons.forEach((button, idx) => {
+                if (idx !== index) {
+                    button.style.display = 'block';
+                }
+            });
+        });
+    });
+
+    stopButtons.forEach((stopButton, index) => {
+        stopButton.addEventListener('click', () => {
+            MIDIjs.stop()
+            // Mostrar el botón "Play" en los otros elementos
+            playButtons.forEach((button, idx) => {
+                button.style.display = 'block';
+            });
+            // Esconder el botón "Stop" correspondiente
+            stopButtons[index].style.display = 'none';
+
+        });
+    });
+    
     const favoriteButtons = document.querySelectorAll('.favorite-button');
     favoriteButtons.forEach(button => {
         button.addEventListener('click', function () {
