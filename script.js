@@ -9,6 +9,14 @@ if (searchTermFromURL) {
     searchInput.value = searchTermFromURL;
 }
 
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+  
+    // Change this to div.childNodes to support multiple top-level nodes.
+    return div.firstChild;
+}
+
 // Definir favoriteFileNames aquí para que esté disponible en todo el archivo script.js
 const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 const favoriteFileNames = new Set(favorites.map(file => file.name));
@@ -72,10 +80,10 @@ async function displayFileList(files) {
             <button class="copy-button" data-url="${file.download_url}">Copy Midi Data</button>
             <button class="${isFavorite ? 'remove-favorite-button' : 'favorite-button'}" data-file='${JSON.stringify(file)}'>
                 ${isFavorite ? 'Unfavorite' : 'Favorite'}
-            </button>
-            <button class="play-button" data-url="${file.download_url}">Play</button>
-            <button class="stop-button" style="display: none">Stop</button>
-        `;
+                </button>
+                <button class="play-button" data-url="${file.download_url}">Play</button>
+                <button class="stop-button" style="display: none">Stop</button>
+            `;
 
         fileListContainer.appendChild(listItem);
         
@@ -128,38 +136,53 @@ async function displayFileList(files) {
     playButtons.forEach((playButton, index) => {
         playButton.addEventListener('click', async function () {
             const url = this.getAttribute('data-url');
-            MIDIjs.stop();
-            MIDIjs.play(url);
-            stopButtons.forEach(stopButton => {
-                stopButton.style.display = 'none';
-            });
-            // Ocultar el botón "Play" actual
-            playButton.style.display = 'none';
+            const midiplayer = createElementFromHTML('<midi-player sound-font visualizer="#myVisualizer"></midi-player>');
+            midiplayer.setAttribute("src",url);
+            midiplayer.style.display = 'none';
+            //midiplayer.setAttribute("sound-font visualizer","#section3 midi-visualizer");
+            playButton.parentElement.appendChild(midiplayer);
+            playButton.textContent = "Loading"
+            playButton.classList.add('play-button-loading');
+            
+            midiplayer.addEventListener('load', () => {
+                midiplayer.start();
+                playButton.textContent = "Play"
+                playButton.classList.remove('play-button-loading');
+                stopButtons.forEach(stopButton => {
+                    stopButton.style.display = 'none';
+                });
+                // Ocultar el botón "Play" actual
+                playButton.style.display = 'none';
+    
+                // Mostrar el botón "Stop" correspondiente
+                stopButtons[index].style.display = 'block';
+                // Mostrar el botón "Play" en los otros elementos
+                playButtons.forEach((button, idx) => {
+                    if (idx !== index) {
+                        button.style.display = 'block';
+                    }
+                });
 
-            // Mostrar el botón "Stop" correspondiente
-            stopButtons[index].style.display = 'block';
+                // Parar el midi
 
-            // Mostrar el botón "Play" en los otros elementos
-            playButtons.forEach((button, idx) => {
-                if (idx !== index) {
-                    button.style.display = 'block';
-                }
+                const stopButton = playButton.parentElement.querySelector('.stop-button');
+
+                stopButton.addEventListener('click', () => {
+                    midiplayer.stop();
+                    midiplayer.remove();
+                    // Mostrar el botón "Play" en los otros elementos
+                    playButtons.forEach((button, idx) => {
+                        button.style.display = 'block';
+                    });
+                    // Esconder el botón "Stop" correspondiente
+                    stopButtons[index].style.display = 'none';
+        
+                });
             });
+            });
+
+
         });
-    });
-
-    stopButtons.forEach((stopButton, index) => {
-        stopButton.addEventListener('click', () => {
-            MIDIjs.stop()
-            // Mostrar el botón "Play" en los otros elementos
-            playButtons.forEach((button, idx) => {
-                button.style.display = 'block';
-            });
-            // Esconder el botón "Stop" correspondiente
-            stopButtons[index].style.display = 'none';
-
-        });
-    });
     
     const favoriteButtons = document.querySelectorAll('.favorite-button');
     favoriteButtons.forEach(button => {

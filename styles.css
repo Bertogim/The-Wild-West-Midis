@@ -93,6 +93,15 @@ h1, h2 {
     background-color: rgb(81, 131, 107);
 }
 
+.play-button-loading {
+    background-color: rgb(117, 135, 85);
+}
+.play-button-loading:hover {
+    background-color: rgb(126, 146, 90);
+}
+
+
+
 .stop-button {
     padding: 5px 10px;
     background-color: rgb(179, 84, 77);
